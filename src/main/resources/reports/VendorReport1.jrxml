@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VendorReport1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af67921e-fa7a-40a8-a3b1-76a4ff459dfb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="week" class="java.lang.String">
+		<defaultValueExpression><![CDATA[201818]]></defaultValueExpression>
+	</parameter>
+	<parameter name="vendorid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select DATE_FORMAT(o.order_date,'%Y%u') week, p.name, p.unit_price, sum(od.quantity) soldnum, sum(od.sub_total) totalmoney from orders o, order_details od, product p, vendor v where od.orders_id=o.id and od.product_id=p.id and DATE_FORMAT(o.order_date,'%Y%u')=$P!{week} and p.vendor_id=v.id and v.id=$P!{vendorid} group by week,od.product_id, p.name order by week desc, totalmoney desc;
+
+]]>
+	</queryString>
+	<field name="week" class="java.lang.String"/>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unit_price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="soldnum" class="java.math.BigDecimal"/>
+	<field name="totalmoney" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="f7c5cd86-03a7-4cf1-b995-e9d69bf444af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="48"/>
+				</textElement>
+				<text><![CDATA[OnlineShopping]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="27a43530-f2ef-4f89-81c3-20ee8860e8d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Vendor Weekly Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="41" width="100" height="20" uuid="901b7c17-e011-49c3-a9a3-c19c26109934"/>
+				<text><![CDATA[week]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="41" width="100" height="20" uuid="eb271351-0ff5-449b-b2f9-7710cb18a516"/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="41" width="100" height="20" uuid="8aa8b9d2-b384-47fb-936f-c6c386d5c92e"/>
+				<text><![CDATA[unit_price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="41" width="100" height="20" uuid="2e5b0832-2796-46c2-ae22-e6d3b47cf3b4"/>
+				<text><![CDATA[soldnum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="41" width="100" height="20" uuid="be2e5a26-8d88-4498-8391-675d853a99be"/>
+				<text><![CDATA[totalmoney]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="23" y="0" width="100" height="20" uuid="8b6b0868-1134-4344-ac77-86280c1c3710"/>
+				<textFieldExpression><![CDATA[$F{week}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="100" height="20" uuid="56bcbc41-3597-429c-b21e-0d64f44cb996"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="0" width="100" height="20" uuid="454ef791-6338-4630-9409-89e7e754dfd3"/>
+				<textFieldExpression><![CDATA[$F{unit_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="0" width="100" height="20" uuid="a384ec4a-50aa-412f-899d-4c4d86bc4fe0"/>
+				<textFieldExpression><![CDATA[$F{soldnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="0" width="100" height="20" uuid="ec443721-14bd-4c31-bdd3-3ef3dc8862e7"/>
+				<textFieldExpression><![CDATA[$F{totalmoney}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

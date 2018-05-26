@@ -1,0 +1,28 @@
+form{
+	margin-top:20px;
+	margin-left:36px;
+}
+
+form table td{
+	width:200px;
+	font-size:18px;
+}
+
+table input[type=text]{
+	width:300px;
+	height:30px;
+	border:1px solid #999;
+}
+
+table input[type=submit]{
+	width:600px;
+	height:30px;
+	border:1px solid #666;
+	background-color:#2a94de;
+	color:#fff;
+}
+
+textarea{
+	width:600px;
+	height:400px;
+}

@@ -1,0 +1,45 @@
+.container .container{
+	margin-top:60px;
+}
+
+#recordAmount{
+	font-weight:bolder;
+}
+
+#tbl th{
+	background-color:#f9f9f9;
+	width:150px;
+	height:40px;
+	padding-left:6px;
+}
+
+#tbl td{
+	padding-left:6px;
+}
+
+#tbl tr{
+	font-size:16px;
+	height:30px;
+}
+
+#tbl tr:nth-child(2n+1){
+	background-color:#fcfcfc;
+}
+
+.operation{
+	background-color:#fff; 
+	
+}
+
+.total th{
+	background:#fff;
+	
+}
+
+.operation a{
+	color:#ea2c58;
+}
+
+h3{
+	color:#ea2c58;
+}

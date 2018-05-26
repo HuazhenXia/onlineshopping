@@ -1,0 +1,27 @@
+.title{
+	font-size:26px;
+	font-weight:bold;
+	color: #ea2c58;
+}
+
+table tr{
+	height:36px;
+	font-size:16px;
+}
+
+table tr td{
+	width:150px;
+}
+
+table tr td input{
+	color:#888;
+	width:400px;
+	height:32px;
+	padding-left:10px; 
+}
+
+.submit{
+	border:0px;
+	background:#ea2c58;
+	color:#fafafa;
+}

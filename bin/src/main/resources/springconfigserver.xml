@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:aop="http://www.springframework.org/schema/aop"
+      xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+   <bean id="rmiServer" class="org.springframework.remoting.rmi.RmiServiceExporter">
+       <property name="service" ref="productServiceImpl" />
+       <property name="serviceName" value="productServiceImpl" />
+       <property name="registryPort" value="1099" />
+       <property name="serviceInterface" value="edu.mum.onlineshoping.service.ProductService" />
+   </bean>
+   <bean id="productServiceImpl" class="edu.mum.onlineshoping.service.impl.ProductServiceImpl"/>
+</beans>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AdminReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="690d8904-b505-4283-8f73-652bdcea86ad">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="157"/>
+	<subDataset name="Money" uuid="2062f191-cf70-4782-9ff4-22260d6b9066">
+		<queryString>
+			<![CDATA[select p.name product, sum(od.sub_total) total from orders o, order_details od, product p, vendor v where o.id=od.orders_id
+and od.product_id=p.id and p.vendor_id=v.id group by p.name, v.f_name, v.l_name;]]>
+		</queryString>
+		<field name="product" class="java.lang.String"/>
+		<field name="total" class="java.lang.Double"/>
+		<group name="product">
+			<groupExpression><![CDATA[$F{product}]]></groupExpression>
+		</group>
+		<group name="total">
+			<groupExpression><![CDATA[$F{total}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="quantity" uuid="280c49c4-8043-4546-a54c-041f7036025d">
+		<queryString>
+			<![CDATA[select p.name product, sum(od.quantity) quantity from orders o, order_details od, product p, vendor v where o.id=od.orders_id
+and od.product_id=p.id and p.vendor_id=v.id group by p.name, v.f_name, v.l_name;]]>
+		</queryString>
+		<field name="product" class="java.lang.String"/>
+		<field name="quantity" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<group name="product">
+			<groupExpression><![CDATA[$F{product}]]></groupExpression>
+		</group>
+		<group name="quantity">
+			<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[select p.name, concat(v.f_name, '.', v.l_name) vendor, sum(od.sub_total) total,sum(od.quantity) quantity from orders o, order_details od, product p, vendor v where o.id=od.orders_id
+and od.product_id=p.id and p.vendor_id=v.id group by p.name, v.f_name, v.l_name order by 3 desc;]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vendor" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
+	<field name="quantity" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="0c1239bc-a95c-417b-bb02-6b85935f51f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="48"/>
+				</textElement>
+				<text><![CDATA[OnlineShopping]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="7078e71a-54df-4acb-9b6f-75f8f9111c37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Admin Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="41" width="100" height="20" uuid="5374da21-7051-440b-bc01-9b7d95656e68"/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="41" width="100" height="20" uuid="160a5d78-c945-49c2-b522-197be92e760c"/>
+				<text><![CDATA[vendor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="41" width="100" height="20" uuid="3d5f9162-ab82-4f91-a8b6-5ca65f8e18c2"/>
+				<text><![CDATA[total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="41" width="100" height="20" uuid="a147eb12-ab5d-49be-9172-f495228d0206"/>
+				<text><![CDATA[quantity]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="0" width="100" height="20" uuid="2b0a537b-1a3a-4eb7-8cd5-087696724fbf"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="100" height="20" uuid="66f3fcf5-5c82-42ae-8a4e-a618c19871ab"/>
+				<textFieldExpression><![CDATA[$F{vendor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="100" height="20" uuid="6ad79994-243a-4bf8-a65a-1dd7d961bc36"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="100" height="20" uuid="af953b02-cb32-4acc-8e4b-282157cab2e1"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="203" splitType="Stretch">
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="555" height="100" uuid="46601df7-4d62-4334-a2bc-0597b9e03319"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="Money" uuid="cb7fb8fa-2d26-41da-ae3e-fd0ef58fedcc"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Sold Money"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{product}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="103" width="555" height="100" uuid="ebcc407a-b0ea-45f6-9ca5-1a5c3dfe8dd6"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="quantity" uuid="950044ca-bebd-4f49-a4a9-40fd3e53b402"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Sold Quantity"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{product}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{quantity}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

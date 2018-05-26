@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a76e47f0-a72a-4f11-a242-42c6edafe5d8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="SoldMoney" uuid="1e905d32-e70d-4d28-852c-ad28f8cc2e6f">
+		<queryString language="SQL">
+			<![CDATA[select p.name, sum(od.sub_total) money from orders o, order_details od, product p where od.orders_id=o.id and od.product_id=p.id and DATE_FORMAT(order_date,'%Y%u')=DATE_FORMAT(sysdate(),'%Y%u') group by od.product_id, p.name;]]>
+		</queryString>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="money" class="java.lang.Double"/>
+		<group name="name">
+			<groupExpression><![CDATA[$F{name}]]></groupExpression>
+		</group>
+		<group name="money">
+			<groupExpression><![CDATA[$F{money}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="SoldQuantity" uuid="94750594-4f33-4dca-b3cc-154b1d2b3163">
+		<queryString language="SQL">
+			<![CDATA[select p.name, sum(od.quantity) quantity from orders o, order_details od, product p where od.orders_id=o.id and od.product_id=p.id and DATE_FORMAT(order_date,'%Y%u')=DATE_FORMAT(sysdate(),'%Y%u') group by od.product_id, p.name;
+]]>
+		</queryString>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="quantity" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<group name="name">
+			<groupExpression><![CDATA[$F{name}]]></groupExpression>
+		</group>
+		<group name="quantity">
+			<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[select p.name, DATE_FORMAT(o.order_date,'%Y%u') weeks, sum(od.sub_total) money, sum(od.quantity) soldnum from orders o, order_details od, product p where od.orders_id=o.id and od.product_id=p.id group by weeks,od.product_id, p.name order by weeks desc, money desc;
+]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="weeks" class="java.lang.String"/>
+	<field name="money" class="java.lang.Double"/>
+	<field name="soldnum" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="b10a734c-7d90-4ff0-81a7-9d6c571b90f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="48"/>
+				</textElement>
+				<text><![CDATA[Online Shipping]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="149" y="0" width="250" height="35" uuid="571a4963-c3fc-4b53-919b-37ced3cce510"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[sold product report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="79" y="41" width="100" height="20" uuid="ffcaf69a-61f6-447b-9004-50fbff1417ba"/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="41" width="100" height="20" uuid="d7fe2490-e304-4c19-8632-3dec504f6e1d"/>
+				<text><![CDATA[weeks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="41" width="100" height="20" uuid="e5741d1c-4048-4c49-b5fc-b7167a9b745b"/>
+				<text><![CDATA[money]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="41" width="100" height="20" uuid="4391293a-60b1-417f-96e7-41bdb155df22"/>
+				<text><![CDATA[soldnum]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="79" y="0" width="100" height="20" uuid="915608b4-c230-474d-afe8-36af78ebe121"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="179" y="0" width="100" height="20" uuid="a3ca2949-7747-4e35-8f3b-7aff235d3000"/>
+				<textFieldExpression><![CDATA[$F{weeks}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="100" height="20" uuid="421ba026-3c9f-4761-ad3a-02c86e689896"/>
+				<textFieldExpression><![CDATA[$F{money}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="0" width="100" height="20" uuid="1c0eee54-5035-42c3-9868-0772a461191e"/>
+				<textFieldExpression><![CDATA[$F{soldnum}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="101" splitType="Stretch">
+			<bar3DChart>
+				<chart>
+					<reportElement x="48" y="1" width="200" height="100" uuid="9ce266d0-41b2-4f78-8619-a83ac3f73098"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="SoldMoney" uuid="34f5321e-f6f4-4e51-bcb4-632595840538"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Sold Money This Week"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{name}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{money}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+			<bar3DChart>
+				<chart>
+					<reportElement x="312" y="1" width="200" height="100" uuid="e603ab20-6f86-4cc1-9a9a-4cdb2abf76a1"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="SoldQuantity" uuid="d401f7e9-b248-404c-bc8a-dc8b87c7b3ad"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Sold Quantity This Week"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{name}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{quantity}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,35 @@
+.container .name{
+	font-size:26px;
+	font-weight:500;
+	color:#ea2c58;
+}
+
+.box{
+	margin-top:80px;
+}
+
+.phone, .email, .address{
+	font-size:16px;
+	font-weight:500;
+}
+
+table{
+	margin-left:20px;
+	width:1000px;
+}
+table tr{	
+	height:42px;}
+
+table tr th{
+	background-color:#eee;
+	padding-left:20px;
+}
+
+.totel th{
+	background-color:#fff;
+}
+
+td{
+	padding-left:24px;
+	height:36px;
+}
