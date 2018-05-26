@@ -4,11 +4,11 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
-<head>
+<head>  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Go to index</title>
 </head>
 <body>
 	You can choose any presentation framework that could be integrated with

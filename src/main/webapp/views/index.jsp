@@ -20,9 +20,9 @@
 	<link href="/css/responsive.css" rel="stylesheet">
 	
 	<link rel="icon" type="image/x-icon" href="/images/icon.ico">
-</head>
+</head> 
 
-<body>
+<body> 
 	<div class="header">
 		<%@ include file="fragments/topheader.jsp" %>
 		<%@ include file="fragments/middleheader.jsp" %>
@@ -30,7 +30,7 @@
 	</div>
 	
 	<!-- home -->
-		<section class="home">
+		<section class="home"> 
             <div class="intro">
                 <div class="container">
 					<div class="row">
